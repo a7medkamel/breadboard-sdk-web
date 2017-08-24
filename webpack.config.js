@@ -61,7 +61,9 @@ let embed = Object.assign({}, conf, {
   entry: './client/embed.js',
   output: {
     path: path.resolve('dist'),
-    filename: 'embed.js'
+    filename: 'embed.js',
+    libraryTarget: 'var',
+    library: 'Breadboard'
   }
 })
 
