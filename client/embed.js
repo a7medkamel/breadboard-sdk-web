@@ -24,7 +24,7 @@ export default class Breadboard {
         repo="taskmill-help"
         width='700px'
         editor={{ style : { height : '200px' }}}
-        stdio={{ style : { height : '200px' }}}
+        stdio={{ style : { height : '100px' }}}
         output={{ style : { height : '200px' }}}
       />, elm);
   }

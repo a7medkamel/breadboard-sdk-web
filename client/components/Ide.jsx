@@ -51,9 +51,16 @@ export default class Ide extends React.Component {
   }
 
   onRun = () => {
-    let blob = this.editor.state['blob'];
+    let blob    = this.editor.state['blob']
+      , tailf   = this.stdio.state['tailf']
+      , headers = {}
+      ;
 
-    this.run(blob);
+    if (tailf) {
+      headers['tailf'] = tailf;
+    }
+
+    this.run(blob, { headers });
   }
 
   render() {
@@ -90,6 +97,7 @@ export default class Ide extends React.Component {
           </ul>
         </nav>
         <Editor blob={this.props.blob} style={this.props.editor.style} ref={(child) => { this.editor = child; }}/>
+        <Stdio state={this.state.state} style={this.props.stdio.style} ref={(child) => { this.stdio = child; }}/>
         <Output state={this.state.state} error={this.state.error} json={this.state.json} style={this.props.output.style}/>
       </div>
     );
