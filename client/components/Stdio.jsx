@@ -24,6 +24,8 @@ export default class Stdio extends React.Component {
 
       this.setState({ tailf });
 
+      this.xtermjs.clear();
+
       this.client.on('data', (payload) => {
         console.log(payload);
         if (this.xtermjs) {
