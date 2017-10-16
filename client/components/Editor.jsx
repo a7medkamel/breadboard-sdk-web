@@ -10,10 +10,6 @@ import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 
-// function onChange(newValue) {
-//   console.log('change', newValue);
-// }
-
 // https://github.com/securingsincity/react-ace/blob/master/docs/FAQ.md
 // https://github.com/securingsincity/react-ace/blob/master/docs/Ace.md
 // http://securingsincity.github.io/react-ace/
@@ -28,21 +24,14 @@ export default class Editor extends React.Component {
   }
 
   onChange = (text) => {
-    // this.text = text;
     this.setState({ blob : text });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return false;
-    // if (this.state.aceEditorValue !== nextState.aceEditorValue) {
-    //   return false
-    // } else {
-    //   return true;
-    // }
   }
 
   componentDidMount() {
-    // var $this = $(ReactDOM.findDOMNode(this));
   }
 
   render() {

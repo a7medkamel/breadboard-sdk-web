@@ -6,53 +6,66 @@ import XTermCSS from 'xterm/dist/xterm.css';
 
 import tailf_sdk from 'tailf.io-sdk';
 
+import css_parser from 'css-math/lib/parser';
+
 export default class Stdio extends React.Component {
   constructor(props) {
     super(props);
 
-    // todo [akamel] should this be in the ctor?
-    let { Client } = tailf_sdk;
-
     this.state = {
-      tailf : undefined
+        uri   : undefined
+      , token : undefined
     }
-
-    this.client = new Client('https://tailf.io');
-
-    this.client.on('connect', (data) => {
-      let { uri : tailf } = data;
-
-      this.setState({ tailf });
-
-      this.xtermjs.clear();
-
-      this.client.on('data', (payload) => {
-        console.log(payload);
-        if (this.xtermjs) {
-          let { text } = payload;
-          this.xtermjs.write(text);
-        }
-      });
-
-      this.client.on('end', (payload) => {
-        console.log(payload);
-      });
-    });
   }
 
   componentDidMount() {
     // var $this = $(ReactDOM.findDOMNode(this));
     // set el height and width etc.
     if (this.xtermjs) {
-      console.log('mount fitting')
       this.xtermjs.fit();
     }
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    let { uri, token }  = nextState
+      , { xtermjs }     = this
+      ;
+
+    if (this.state.uri != uri || this.state.token != token) {
+      if (this.client) {
+        this.client.close();
+        delete this.client;
+      }
+
+      if (xtermjs) {
+        xtermjs.xterm.clear();
+      }
+
+      let { Client } = tailf_sdk;
+
+      let client = new Client(uri, { token });
+
+      client
+        .on('connect', () => {
+          // connected
+        })
+        .on('data', (payload = {}) => {
+          let { text } = payload;
+          if (xtermjs) {
+            xtermjs.write(text);
+          }
+        }).on('end', (payload) => {
+        });
+
+      this.client = client;
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (this.xtermjs) {
-      console.log('update fitting')
-      this.xtermjs.fit();
+    let { xtermjs } = this;
+
+    if (xtermjs) {
+      xtermjs.fit();
     }
   }
 
@@ -68,8 +81,10 @@ export default class Stdio extends React.Component {
     }
     `
 
+    let height = css_parser(`${this.props.style.height} + 20px`);
+
     return (
-      <div style={{ padding : '10px', height : this.props.style.height - 20, 'background-color' : 'rgb(0, 0, 0)' }}>
+      <div style={{ padding : '10px', height, 'backgroundColor' : 'rgb(0, 0, 0)' }}>
         <style>{css}</style>
         <XTerm options={{ cursorBlink : false, cursorStyle : 'underline' }} ref={(child) => { this.xtermjs = child; }}/>
       </div>

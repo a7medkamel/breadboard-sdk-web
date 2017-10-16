@@ -7,6 +7,7 @@ import Editor from './Editor.jsx';
 import Stdio from './Stdio.jsx';
 import Output from './Output.jsx';
 
+import tailf_sdk from 'tailf.io-sdk';
 // import { Button, Navbar } from 'react-bootstrap';
 
 import breadboard_sdk from 'breadboard-sdk';
@@ -27,7 +28,9 @@ export default class Ide extends React.Component {
   }
 
   run(blob, options = {}) {
-    let { body, headers = {} } = options;
+    let { body, breadboard, headers = {} } = options;
+
+    breadboard = 'http://localhost:8070';
 
     this.setState({ state : 'in_progress' });
     breadboard_sdk
@@ -35,6 +38,7 @@ export default class Ide extends React.Component {
           blob
         , body
         , headers
+        , breadboard
       })
       .then((response) => {
         let ct = content_type.parse(response.headers.get('content-type'));
@@ -51,16 +55,21 @@ export default class Ide extends React.Component {
   }
 
   onRun = () => {
-    let blob    = this.editor.state['blob']
-      , tailf   = this.stdio.state['tailf']
-      , headers = {}
-      ;
+    let { Api : TailfApi } = tailf_sdk;
 
-    if (tailf) {
-      headers['tailf'] = tailf;
-    }
+    TailfApi
+      .open({ })
+      .then((result) => {
+        let { id, token, read_token, uri, host } = result;
 
-    this.run(blob, { headers });
+        let blob    = this.editor.state['blob']
+          , headers = { tailf : uri }
+          ;
+
+        this.stdio.setState({ uri, token : read_token });
+
+        this.run(blob, { headers });
+      });
   }
 
   render() {
