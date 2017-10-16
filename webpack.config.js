@@ -15,7 +15,8 @@ let conf = {
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      // { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/, loader: 'babel-loader' },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.png$/, loader: "url-loader?limit=100000" },
       { test: /\.jpg$/, loader: "file-loader" },

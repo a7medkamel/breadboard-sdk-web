@@ -4,7 +4,8 @@
 import React from 'react';
 
 import Editor from './Editor.jsx';
-import Stdio from './Stdio.jsx';
+// import Stdio from './Stdio.jsx';
+import Stdio from 'tailf.io-sdk-web/client/components/Stdio.jsx';
 import Output from './Output.jsx';
 
 import tailf_sdk from 'tailf.io-sdk';

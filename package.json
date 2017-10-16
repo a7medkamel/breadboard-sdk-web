@@ -43,6 +43,7 @@
     "react-xterm": "^1.1.1",
     "style-loader": "^0.18.2",
     "tailf.io-sdk": "git+https://github.com/a7medkamel/tailf.io-sdk.git",
+    "tailf.io-sdk-web": "git+https://github.com/a7medkamel/tailf.io-sdk-web.git",
     "universal-url": "^1.0.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5"
