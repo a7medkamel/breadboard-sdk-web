@@ -19,8 +19,6 @@ export default class Stdio extends React.Component {
   }
 
   componentDidMount() {
-    // var $this = $(ReactDOM.findDOMNode(this));
-    // set el height and width etc.
     if (this.xtermjs) {
       this.xtermjs.fit();
     }
@@ -82,7 +80,7 @@ export default class Stdio extends React.Component {
     `
 
     let height = css_parser(`${this.props.style.height} + 20px`);
-
+    //  height : `calc(${this.props.style.height} - 20)`
     return (
       <div style={{ padding : '10px', height, 'backgroundColor' : 'rgb(0, 0, 0)' }}>
         <style>{css}</style>
