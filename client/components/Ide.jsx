@@ -31,8 +31,6 @@ export default class Ide extends React.Component {
   run(blob, options = {}) {
     let { body, breadboard, headers = {} } = options;
 
-    breadboard = 'http://localhost:8070';
-
     this.setState({ state : 'in_progress' });
     breadboard_sdk
       .run(this.props.host, this.props.owner, this.props.repo, '$.js', {
@@ -61,13 +59,13 @@ export default class Ide extends React.Component {
     TailfApi
       .open({ })
       .then((result) => {
-        let { id, token, read_token, uri, host } = result;
+        let { id, token, uri, host } = result;
 
         let blob    = this.editor.state['blob']
           , headers = { tailf : uri }
           ;
 
-        this.stdio.setState({ uri, token : read_token });
+        this.stdio.setState({ uri, token });
 
         this.run(blob, { headers });
       });
@@ -107,7 +105,7 @@ export default class Ide extends React.Component {
           </ul>
         </nav>
         <Editor blob={this.props.blob} style={this.props.editor.style} ref={(child) => { this.editor = child; }}/>
-        <Stdio state={this.state.state} style={this.props.stdio.style} ref={(child) => { this.stdio = child; }}/>
+        <Stdio state={this.state.state} style={this.props.stdio.style} show_footer={true} ref={(child) => { this.stdio = child; }}/>
         <Output state={this.state.state} error={this.state.error} json={this.state.json} style={this.props.output.style}/>
       </div>
     );
