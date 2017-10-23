@@ -22,9 +22,14 @@ export default class Breadboard {
         host="github.com"
         owner="a7medkamel"
         repo="taskmill-help"
+        http_method="GET"
+        http_methods_allowed={["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH"]}
+        http_content_type="application/json"
+        http_content_type_allowed={["TEXT", "JSON", "XML"]}
+        http_body={JSON.stringify({ name : 'adam' })}
         width='700px'
         editor={{ style : { height : '200px' }}}
-        stdio={{ style : { height : '100px' }}}
+        stdio={{ style : { height : '150px' }}}
         output={{ style : { height : '200px' }}}
       />, elm);
   }

@@ -24,12 +24,7 @@ export default class Output extends React.Component {
           <div className="container" style={{ padding : "40px 0" }}>
             <div className="row justify-content-md-center align-items-center">
               <div className="col-12 col-md-auto">
-                <BarLoader
-                  color={'#123abc'}
-                  width={400}
-                  height={8}
-                  loading={true}
-                />
+                <BarLoader color={'#123abc'} width={400} height={8} loading={true} />
               </div>
             </div>
           </div>

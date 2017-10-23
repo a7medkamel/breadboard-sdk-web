@@ -3,7 +3,6 @@
 */
 import React from 'react';
 
-import { render } from 'react-dom';
 import brace from 'brace';
 import AceEditor from 'react-ace';
 
@@ -44,7 +43,7 @@ export default class Editor extends React.Component {
         onChange={this.onChange}
         height={this.props.style.height}
         width="100%"
-        name="UNIQUE_ID_OF_DIV"
+        name="BREADBOARD_IDE_EDITOR"
         maxLines={Infinity}
         minLines={15}
         highlightActiveLine={true}
