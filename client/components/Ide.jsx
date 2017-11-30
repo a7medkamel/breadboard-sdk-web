@@ -3,6 +3,8 @@
 */
 import React from 'react';
 
+// import ReactDOM from 'react-dom';
+
 import Editor from './Editor.jsx';
 // import Stdio from './Stdio.jsx';
 import Stdio from 'tailf.io-sdk-web/client/components/Stdio.jsx';
@@ -13,8 +15,11 @@ import HTTP_Method_Dropdown from './http/http_method.jsx';
 import HTTP_ContentType_Dropdown from './http/http_content_type.jsx';
 
 import tailf_sdk from 'tailf.io-sdk';
-// import { Button, Navbar } from 'react-bootstrap';
+
+// import 'jquery';
 import 'bootstrap';
+// import { Button, Navbar } from 'react-bootstrap';
+// import 'bootstrap/js/dist/tooltip';
 
 import breadboard_sdk from 'breadboard-sdk';
 
@@ -23,6 +28,12 @@ import content_type from 'content-type';
 import FontAwesome from 'react-fontawesome';
 
 import FA from 'font-awesome/css/font-awesome.css';
+
+import { HotKeys } from 'react-hotkeys';
+
+const keyMap = {
+  'run': 'command+option+r'
+};
 
 export default class Ide extends React.Component {
   constructor(props) {
@@ -65,7 +76,7 @@ export default class Ide extends React.Component {
   }
 
   onRun(e) {
-    e.preventDefault();
+    e && e.preventDefault();
 
     let { Api : TailfApi } = tailf_sdk;
 
@@ -76,10 +87,18 @@ export default class Ide extends React.Component {
 
         let blob          = this.editor.state['blob']
           , method        = this.http_method_selector.state['selected'].name
-          , body          = this.http_content.state['content']
-          , content_type  = this.http_content_type_selector.state['selected'].content_type
+          , body          = undefined
+          , content_type  = undefined
           , headers       = { tailf : uri }
           ;
+
+        if (this.http_content) {
+          body = this.http_content.state['content'];
+        }
+
+        if (this.http_content_type_selector) {
+          content_type = this.http_content_type_selector.state['selected'].content_type;
+        }
 
         if (content_type) {
           headers['Content-Type'] = content_type + '; charset=utf-8';
@@ -104,14 +123,50 @@ export default class Ide extends React.Component {
     this.setState({ method : selected.name });
   }
 
+  componentDidMount() {
+    // let dom = ReactDOM.findDOMNode(this);
+
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  componentDidUpdate() {
+    // let dom = ReactDOM.findDOMNode(this);
+
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
   render() {
     const css = `
       .navbar  {
         margin-bottom: 0;
       }
+
+      .gutter {
+        float: left;
+        clear: both;
+        margin-left: -150px;
+        width: 150px;
+        text-align: right;
+        padding-right: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .gutter h1 {
+        font-size: 0.65em;
+        margin-top: 0.65em;
+        color: #777;
+      }
     `
 
-    let has_body = HTTP_Method_Dropdown.has_body(this.state['method']);
+    let has_body    = HTTP_Method_Dropdown.has_body(this.state['method'])
+      , show_stdio  = this.state['state'] != 'none'
+      , show_output = this.state['state'] != 'none'
+      , show_gutter = true
+      , handlers = {
+        'run': (event) => this.onRun()
+      }
+      ;
 
     return (
       <div className='container' style={{
@@ -124,7 +179,7 @@ export default class Ide extends React.Component {
         <nav className="navbar navbar-light bg-faded navbar-expand-lg">
           <ul className="navbar-nav">
             <li className="nav-item active">
-              <a className="nav-link" href="#" onClick={this.onRun.bind(this)}>
+              <a className="nav-link" href="#" onClick={this.onRun.bind(this)} data-toggle="tooltip" title="⌘ + ⌥ + r">
                 <FontAwesome name='rocket' />&nbsp;Run
               </a>
             </li>
@@ -138,12 +193,22 @@ export default class Ide extends React.Component {
             }
           </ul>
         </nav>
-        { has_body &&
-          <HTTP_Body content_type={this.state.content_type} content={this.state.content} rows={5} style={{ height : '60px' }} ref={(child) => { this.http_content = child; }}/>
-        }
-        <Editor blob={this.props.blob} style={this.props.editor.style} ref={(child) => { this.editor = child; }}/>
-        <Stdio state={this.state.state} uri={this.state.tailf_uri} token={this.state.tailf_token} style={this.props.stdio.style} show_footer={true} ref={(child) => { this.stdio = child; }}/>
-        <Output state={this.state.state} error={this.state.error} json={this.state.json} style={this.props.output.style}/>
+        { has_body && [
+            show_gutter && <div key="a" className="gutter"><h1>Request Body</h1></div>
+          , <HTTP_Body key="b" content_type={this.state.content_type} content={this.state.content} rows={5} style={{ height : '60px' }} ref={(child) => { this.http_content = child; }}/>
+        ]}
+        <HotKeys keyMap={keyMap} handlers={handlers}>
+          { show_gutter && <div className="gutter"><h1>Script</h1></div> }
+          <Editor blob={this.props.blob} style={this.props.editor.style} ref={(child) => { this.editor = child; }}/>
+        </HotKeys>
+        { show_stdio && [
+            show_gutter && <div key="a" className="gutter"><h1>Console</h1></div>
+          , <Stdio key="b" uri={this.state.tailf_uri} token={this.state.tailf_token} style={this.props.stdio.style} ref={(child) => { this.stdio = child; }}/>
+        ]}
+        { show_output && [
+            show_gutter && <div key="a" className="gutter"><h1>Output</h1></div>
+          , <Output key="b" state={this.state.state} error={this.state.error} json={this.state.json} style={this.props.output.style}/>
+        ]}
       </div>
     );
   }

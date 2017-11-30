@@ -63,12 +63,12 @@ let embed = Object.assign({}, conf, {
   entry: './client/embed.js',
   output: {
     path: path.resolve('dist'),
-    filename: 'embed.js',
+    filename: 'breadboard-sdk-web.js',
     libraryTarget: 'var',
     library: 'Breadboard'
   }
 })
 
 module.exports = [
-  standalone/*, embed*/
+  standalone, embed
 ]
