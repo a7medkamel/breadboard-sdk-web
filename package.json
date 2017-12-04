@@ -1,5 +1,5 @@
 {
-  "name": "breadboard-ui-embed",
+  "name": "breadboard-sdk-web",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/a7medkamel/breadboard-ui-embed.git"
+    "url": "git+https://github.com/a7medkamel/breadboard-sdk-web.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/a7medkamel/breadboard-ui-embed/issues"
+    "url": "https://github.com/a7medkamel/breadboard-sdk-web/issues"
   },
-  "homepage": "https://github.com/a7medkamel/breadboard-ui-embed#readme",
+  "homepage": "https://github.com/a7medkamel/breadboard-sdk-web#readme",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

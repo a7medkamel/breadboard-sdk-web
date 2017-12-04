@@ -1,1 +1,1 @@
-# breadboard-ui-embed
+# breadboard-sdk-web
