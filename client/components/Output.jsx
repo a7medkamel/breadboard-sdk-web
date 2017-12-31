@@ -7,8 +7,6 @@ import { render } from 'react-dom';
 
 import { Jumbotron } from 'react-bootstrap';
 
-// import JSONTree from 'react-json-tree'
-
 import { ObjectInspector } from 'react-inspector'
 
 import { BarLoader } from 'react-spinners';
@@ -37,10 +35,17 @@ export default class Output extends React.Component {
     }
 
     if (this.props.state == 'done') {
-      // <JSONTree data={this.props.json} />
+      if (this.props.output_type == 'json') {
+        return (
+          <div style={{ width : '100%', padding : '10px', height : this.props.style.height }}>
+            <ObjectInspector data={this.props.output} expandLevel={2} />
+          </div>
+        );
+      }
+
       return (
         <div style={{ width : '100%', padding : '10px', height : this.props.style.height }}>
-          <ObjectInspector data={this.props.json} expandLevel={2} />
+          <div dangerouslySetInnerHTML={{ __html : this.props.output}} />
         </div>
       );
     }

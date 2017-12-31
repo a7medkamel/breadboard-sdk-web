@@ -39,7 +39,8 @@ export default class Ide extends React.Component {
   constructor(props) {
      super(props);
      this.state = {
-        json          : undefined
+        output        : undefined
+      , output_type   : undefined
       , state         : 'none'
       , content       : props['http_body'] || 'module.exports = (req, res) => res.send({ "message" : "Hello World!" })'
       , content_type  : props['http_content_type'] || 'application/json'
@@ -62,13 +63,25 @@ export default class Ide extends React.Component {
         , breadboard
       })
       .then((response) => {
-        let ct = content_type.parse(response.headers.get('content-type'));
+        // move this into breadboard_sdk
+        // let ct = content_type.parse(response.headers.get('content-type'));
+        let { extension } = response.breadboard
+          , out           = undefined
+          ;
 
-        if (ct.parameters.charset == 'utf-8') {
-          return response
-                  .json()
-                  .then((json) => this.setState({ json, state : 'done' }));
+        if (extension == 'json') {
+          out = response.json();
+        } else {
+          // todo [akamel] handle non-text output
+          out = response.text();
         }
+
+        return out.then((output) => { return { output, output_type : extension }; });
+      })
+      .then((result) => {
+        let { output, output_type } = result;
+
+        this.setState({ output, output_type, state : 'done' });
       })
       .catch((err) => {
         this.setState({ state : 'error', error : err });
@@ -207,7 +220,7 @@ export default class Ide extends React.Component {
         ]}
         { show_output && [
             show_gutter && <div key="a" className="gutter"><h1>Output</h1></div>
-          , <Output key="b" state={this.state.state} error={this.state.error} json={this.state.json} style={this.props.output.style}/>
+          , <Output key="b" state={this.state.state} error={this.state.error} output={this.state.output} output_type={this.state.output_type} style={this.props.output.style}/>
         ]}
       </div>
     );

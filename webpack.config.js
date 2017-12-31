@@ -51,24 +51,30 @@ let conf = {
   }
 }
 
-let standalone = Object.assign({}, conf, {
-  entry: './client/index.js',
-  output: {
-    path: path.resolve('dist'),
-    filename: 'index_bundle.js'
-  }
-})
-
-let embed = Object.assign({}, conf, {
-  entry: './client/embed.js',
-  output: {
-    path: path.resolve('dist'),
-    filename: 'breadboard-sdk-web.js',
-    libraryTarget: 'var',
-    library: 'Breadboard'
-  }
-})
-
 module.exports = [
-  standalone, embed
+  Object.assign({}, conf, {
+    entry: './client/index.js',
+    output: {
+      path: path.resolve('dist'),
+      filename: 'index.js'
+    }
+  }),
+  Object.assign({}, conf, {
+    entry: './client/sdk.js',
+    output: {
+      path: path.resolve('dist'),
+      filename: 'sdk.js',
+      libraryTarget: 'var',
+      library: 'Breadboard'
+    }
+  }),
+  Object.assign({}, conf, {
+    entry: './client/sdk.js',
+    output: {
+      path: path.resolve('dist'),
+      filename: 'module.js',
+      libraryTarget: 'commonjs',
+      library: 'Breadboard'
+    }
+  })
 ]
