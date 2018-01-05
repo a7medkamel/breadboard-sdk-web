@@ -175,7 +175,7 @@ export default class Ide extends React.Component {
     let has_body    = HTTP_Method_Dropdown.has_body(this.state['method'])
       , show_stdio  = this.state['state'] != 'none'
       , show_output = this.state['state'] != 'none'
-      , show_gutter = true
+      , show_gutter = this.props['show_gutter']
       , handlers = {
         'run': (event) => this.onRun()
       }

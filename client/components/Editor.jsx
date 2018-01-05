@@ -34,6 +34,11 @@ export default class Editor extends React.Component {
   }
 
   render() {
+    let {
+        min_lines = 15
+      , max_lines = Infinity
+     } = this.props ;
+
     return (
       <AceEditor
         value={this.props.blob}
@@ -44,8 +49,8 @@ export default class Editor extends React.Component {
         height={this.props.style.height}
         width="100%"
         name="BREADBOARD_IDE_EDITOR"
-        maxLines={Infinity}
-        minLines={15}
+        maxLines={max_lines}
+        minLines={min_lines}
         highlightActiveLine={true}
         editorProps={{
             $blockScrolling           : Infinity

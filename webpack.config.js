@@ -11,6 +11,8 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
+// how to bundle fonts
+// https://shellmonger.com/2016/01/22/working-with-fonts-with-webpack/
 let conf = {
   module: {
     loaders: [
