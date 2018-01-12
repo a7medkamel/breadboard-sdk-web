@@ -103,6 +103,7 @@ export default class Ide extends React.Component {
           , body          = undefined
           , content_type  = undefined
           , headers       = { tailf : uri }
+          , breadboard    = this.props['breadboard_url']
           ;
 
         if (this.http_content) {
@@ -119,7 +120,7 @@ export default class Ide extends React.Component {
 
         this.setState({ tailf_uri : uri, tailf_token : token });
 
-        this.run(blob, { headers, method, body });
+        this.run(blob, { headers, method, body, breadboard });
       });
   }
 

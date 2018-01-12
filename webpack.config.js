@@ -35,7 +35,7 @@ let conf = {
               replacement: (match, p1, offset, string) => 'new.target === undefined'
             }
           ]})
-      }
+      },
     ]
   },
   plugins: [

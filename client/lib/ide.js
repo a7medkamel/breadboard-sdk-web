@@ -24,6 +24,7 @@ export default class Breadboard {
         , http_body     = JSON.stringify({})
         , blob          = `module.exports = (req, res) => res.send({ message : 'Hello World!' });`
         , show_gutter   = false
+        , breadboard
       } = options;
 
     ReactDOM.render(
@@ -32,6 +33,7 @@ export default class Breadboard {
         host={host}
         owner={owner}
         repo={repo}
+        breadboard_url={breadboard}
         http_method={http_method}
         http_methods_allowed={["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH"]}
         http_content_type="application/json"
