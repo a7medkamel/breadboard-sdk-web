@@ -51,16 +51,20 @@ export default class Ide extends React.Component {
   }
 
   run(blob, options = {}) {
-    let { body, method, breadboard, headers = {} } = options;
+    let { body, method, headers = {} } = options;
 
     this.setState({ state : 'in_progress' });
+
+    let { host, owner, repo, token, breadboard } = this.props;
+
     breadboard_sdk
-      .run(this.props.host, this.props.owner, this.props.repo, '$.js', {
+      .run(host, owner, repo, '$.js', {
           blob
         , body
         , method
         , headers
         , breadboard
+        , token
       })
       .then((response) => {
         // move this into breadboard_sdk
@@ -103,7 +107,6 @@ export default class Ide extends React.Component {
           , body          = undefined
           , content_type  = undefined
           , headers       = { tailf : uri }
-          , breadboard    = this.props['breadboard_url']
           ;
 
         if (this.http_content) {
@@ -120,7 +123,7 @@ export default class Ide extends React.Component {
 
         this.setState({ tailf_uri : uri, tailf_token : token });
 
-        this.run(blob, { headers, method, body, breadboard });
+        this.run(blob, { headers, method, body });
       });
   }
 
