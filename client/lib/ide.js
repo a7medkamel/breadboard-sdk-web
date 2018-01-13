@@ -35,7 +35,7 @@ export default class Breadboard {
         owner={owner}
         repo={repo}
         breadboard={breadboard}
-        toekn={toekn}
+        token={token}
         http_method={http_method}
         http_methods_allowed={["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH"]}
         http_content_type="application/json"
