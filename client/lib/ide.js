@@ -21,6 +21,7 @@ export default class Breadboard {
         , owner         = 'a7medkamel'
         , repo          = 'taskmill-help'
         , breadboard
+        , platform      = 'github'
         , token
         , http_method   = 'GET'
         , http_body     = JSON.stringify({})
@@ -35,6 +36,7 @@ export default class Breadboard {
         owner={owner}
         repo={repo}
         breadboard={breadboard}
+        platform={platform}
         token={token}
         http_method={http_method}
         http_methods_allowed={["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH"]}

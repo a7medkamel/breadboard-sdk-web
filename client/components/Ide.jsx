@@ -55,7 +55,7 @@ export default class Ide extends React.Component {
 
     this.setState({ state : 'in_progress' });
 
-    let { host, owner, repo, token, breadboard } = this.props;
+    let { host, owner, repo, token, breadboard, platform } = this.props;
 
     breadboard_sdk
       .run(host, owner, repo, '$.js', {
@@ -64,6 +64,7 @@ export default class Ide extends React.Component {
         , method
         , headers
         , breadboard
+        , platform
         , token
       })
       .then((response) => {
