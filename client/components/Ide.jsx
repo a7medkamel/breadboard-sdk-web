@@ -96,10 +96,12 @@ export default class Ide extends React.Component {
   onRun(e) {
     e && e.preventDefault();
 
-    let { Api : TailfApi } = tailf_sdk;
+    let { Api : TailfApi }  = tailf_sdk
+      , host                = this.props['tailf']
+      ;
 
     TailfApi
-      .open({ })
+      .open({ host })
       .then((result) => {
         let { id, token, uri, host } = result;
 

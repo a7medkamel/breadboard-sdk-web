@@ -25,6 +25,7 @@ export default class Breadboard {
         , token
         , http_method   = 'GET'
         , http_body     = JSON.stringify({})
+        , tailf         = undefined
         , blob          = `module.exports = (req, res) => res.send({ message : 'Hello World!' });`
         , show_gutter   = false
       } = options;
@@ -43,6 +44,7 @@ export default class Breadboard {
         http_content_type="application/json"
         http_content_type_allowed={["TEXT", "JSON", "XML"]}
         http_body={http_body}
+        tailf={tailf}
         show_gutter={show_gutter}
         width={width}
         editor={{ style : { height : '200px' }}}
