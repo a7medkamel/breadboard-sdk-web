@@ -85,8 +85,17 @@ module.exports = [
     entry: './client/sdk.js',
     output: {
       path: path.resolve('dist'),
-      filename: 'module.js',
+      filename: 'commonjs.js',
       libraryTarget: 'commonjs',
+      library: 'Breadboard'
+    }
+  }),
+  Object.assign({}, conf, {
+    entry: './client/sdk.js',
+    output: {
+      path: path.resolve('dist'),
+      filename: 'umd.js',
+      libraryTarget: 'umd',
       library: 'Breadboard'
     }
   })
