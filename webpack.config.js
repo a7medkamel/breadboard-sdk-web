@@ -108,22 +108,22 @@ module.exports = [
       library: 'Breadboard'
     }
   }),
-  Object.assign({}, conf, {
-    entry: './client/sdk.js',
-    output: {
-      path: path.resolve('dist'),
-      filename: 'commonjs.js',
-      libraryTarget: 'commonjs',
-      library: 'Breadboard'
-    }
-  }),
-  Object.assign({}, conf, {
-    entry: './client/sdk.js',
-    output: {
-      path: path.resolve('dist'),
-      filename: 'umd.js',
-      libraryTarget: 'umd',
-      library: 'Breadboard'
-    }
-  })
+  // Object.assign({}, conf, {
+  //   entry: './client/sdk.js',
+  //   output: {
+  //     path: path.resolve('dist'),
+  //     filename: 'commonjs.js',
+  //     libraryTarget: 'commonjs',
+  //     library: 'Breadboard'
+  //   }
+  // }),
+  // Object.assign({}, conf, {
+  //   entry: './client/sdk.js',
+  //   output: {
+  //     path: path.resolve('dist'),
+  //     filename: 'umd.js',
+  //     libraryTarget: 'umd',
+  //     library: 'Breadboard'
+  //   }
+  // })
 ]

@@ -3,10 +3,8 @@
 */
 import React from 'react';
 
-// import ReactDOM from 'react-dom';
-
 import Editor from './Editor.jsx';
-// import Stdio from './Stdio.jsx';
+
 import Stdio from 'tailf.io-sdk-web/client/components/Stdio.jsx';
 import Output from './Output.jsx';
 
@@ -16,18 +14,15 @@ import HTTP_ContentType_Dropdown from './http/http_content_type.jsx';
 
 import tailf_sdk from 'tailf.io-sdk';
 
-// import 'jquery';
 import 'bootstrap';
-// import { Button, Navbar } from 'react-bootstrap';
-// import 'bootstrap/js/dist/tooltip';
 
 import breadboard_sdk from 'breadboard-sdk';
 
 import content_type from 'content-type';
 
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import FA from 'font-awesome/css/font-awesome.css';
+import { faRocket } from '@fortawesome/free-solid-svg-icons'
 
 import { HotKeys } from 'react-hotkeys';
 
@@ -200,7 +195,7 @@ export default class Ide extends React.Component {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <a className="nav-link" href="#" onClick={this.onRun.bind(this)} data-toggle="tooltip" title="⌘ + ⌥ + r">
-                <FontAwesome name='rocket' />&nbsp;Run
+                <FontAwesomeIcon icon={faRocket} />&nbsp;Run
               </a>
             </li>
             <li className="nav-item dropdown">
