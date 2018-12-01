@@ -38,7 +38,7 @@ let conf = {
       },
       {
           test: /\.css$/
-        , use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader'] })
+        , use: { loader : "css-loader" }
       },
       { test: /\.png$/, use: { loader: "url-loader?limit=100000" } },
       { test: /\.jpg$/, use: { loader: "file-loader" } },
