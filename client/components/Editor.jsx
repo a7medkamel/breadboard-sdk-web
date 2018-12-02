@@ -1,6 +1,3 @@
-/*
-    ./client/components/App.jsx
-*/
 import React from 'react';
 
 import brace from 'brace';

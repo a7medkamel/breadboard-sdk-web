@@ -1,6 +1,3 @@
-/*
-    ./client/components/App.jsx
-*/
 import React from 'react';
 
 import Editor from './Editor.jsx';
