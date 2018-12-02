@@ -3,6 +3,7 @@ import React from 'react';
 import Editor from './Editor.jsx';
 
 import Stdio from 'tailf.io-sdk-web/client/components/Stdio.jsx';
+
 import Output from './Output.jsx';
 
 import HTTP_Body from './http/http_body.jsx';
@@ -22,6 +23,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRocket } from '@fortawesome/free-solid-svg-icons'
 
 import { HotKeys } from 'react-hotkeys';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 const keyMap = {
   'run': 'command+option+r'
