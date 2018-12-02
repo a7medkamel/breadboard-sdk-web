@@ -38,7 +38,10 @@ let conf = {
       },
       {
           test: /\.css$/
-        , use: { loader : "css-loader" }
+        , use: [
+            { loader: "style-loader" },
+            { loader: "css-loader" }
+          ]
       },
       { test: /\.png$/, use: { loader: "url-loader?limit=100000" } },
       { test: /\.jpg$/, use: { loader: "file-loader" } },
